@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Innovation Self-Evaluation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  :root {
+    --cream: #F5F1E8;
+    --cream-warm: #EFEADD;
+    --paper: #FAF7F0;
+    --ink: #1C1814;
+    --ink-soft: #2F2A24;
+    --muted: #6E665B;
+    --muted-light: #948A7C;
+    --line: rgba(28, 24, 20, 0.12);
+    --line-soft: rgba(28, 24, 20, 0.06);
+    --accent: #A84628;
+    --accent-deep: #6F2D1A;
+    --accent-soft: #E8D5C5;
+    --serif: 'Fraunces', 'Garamond', Georgia, serif;
+    --sans: 'Inter Tight', system-ui, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 17px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Typography */
+  h1, h2, h3, .serif {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-variation-settings: "opsz" 144, "SOFT" 50;
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-variation-settings: "opsz" 72;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .italic { font-style: italic; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .lead {
+    font-size: 1.15rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-weight: 300;
+  }
+
+  p { color: var(--ink-soft); }
+
+  /* Layout */
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  .section {
+    display: none;
+    min-height: 100vh;
+    padding: 80px 0;
+    animation: fadeIn 0.5s ease;
+  }
+
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Progress */
+  .progress-rail {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--line-soft);
+    z-index: 100;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .progress-label {
+    position: fixed;
+    top: 18px;
+    right: 32px;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 99;
+    background: var(--cream);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 0.5px solid var(--line);
+  }
+
+  /* Hero section */
+  .hero {
+    text-align: left;
+    padding-top: 12vh;
+  }
+
+  .hero .eyebrow { margin-bottom: 32px; }
+  .hero h1 { margin-bottom: 32px; max-width: 680px; }
+  .hero h1 .em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 300;
+  }
+  .hero .lead { max-width: 580px; margin-bottom: 24px; }
+
+  .attribution {
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 0.5px solid var(--line);
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 580px;
+  }
+  .attribution em { color: var(--ink-soft); font-family: var(--serif); font-size: 15px; }
+
+  /* Framework preview on hero */
+  .framework-mini {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--line);
+    border: 0.5px solid var(--line);
+    margin: 48px 0;
+    max-width: 460px;
+    font-size: 13px;
+  }
+  .framework-mini > div {
+    background: var(--paper);
+    padding: 16px 20px;
+  }
+  .framework-mini .mode {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .framework-mini .tag {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Forms */
+  .field { margin-bottom: 28px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .field select, .field input[type="text"] {
+    width: 100%;
+    height: 52px;
+    padding: 0 18px;
+    font-size: 16px;
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--paper);
+    border: 0.5px solid var(--line);
+    border-radius: 4px;
+    transition: all 0.15s;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='none' stroke='%236E665B' stroke-width='1.5' d='M1 1.5L6 6.5L11 1.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+  }
+  .field input[type="text"] { background-image: none; }
+  .field select:focus, .field input:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+  }
+
+  /* Questions */
+  .question-block {
+    padding: 36px 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+  .question-block:last-of-type { border-bottom: none; }
+
+  .question-num {
+    font-family: var(--serif);
+    font-size: 13px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .question-text {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 28px;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .likert {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .likert button {
+    height: 56px;
+    background: var(--paper);
+    border: 0.5px solid var(--line);
+    border-radius: 4px;
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .likert button:hover {
+    border-color: var(--ink);
+    color: var(--ink);
+    transform: translateY(-1px);
+  }
+
+  .likert button.selected {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .anchor-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted-light);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Reflection prompt inside question sections */
+  .reflection-prompt {
+    margin-top: 56px;
+    padding: 32px 36px;
+    background: var(--cream-warm);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 4px 4px 0;
+  }
+
+  .reflection-prompt-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .reflection-prompt-text {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 18px;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .reflection-prompt textarea {
+    width: 100%;
+    min-height: 96px;
+    padding: 14px 16px;
+    font-family: var(--serif);
+    font-size: 1.02rem;
+    line-height: 1.55;
+    color: var(--ink);
+    background: var(--paper);
+    border: 0.5px solid var(--line);
+    border-radius: 4px;
+    resize: vertical;
+    transition: all 0.15s;
+    font-variation-settings: "opsz" 24;
+  }
+
+  .reflection-prompt textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    background: #fff;
+  }
+
+  .reflection-prompt-hint {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 10px;
+    line-height: 1.45;
+  }
+
+  @media (max-width: 720px) {
+    .reflection-prompt { padding: 24px 22px; margin-top: 40px; }
+    .reflection-prompt-text { font-size: 1.05rem; }
+  }
+
+  /* Section headers for question pages */
+  .q-section-header {
+    margin-bottom: 48px;
+    padding-bottom: 24px;
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .q-section-header .eyebrow {
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .q-section-header h2 { margin-bottom: 12px; }
+  .q-section-header .lead { font-size: 1rem; max-width: 540px; }
+
+  .step-indicator {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  /* Navigation */
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 0.5px solid var(--line);
+    gap: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    background: transparent;
+    color: var(--ink);
+    border: 0.5px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .btn:hover {
+    background: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .btn.primary {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .btn.primary:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .btn.accent {
+    background: var(--accent);
+    color: var(--paper);
+    border-color: var(--accent);
+  }
+
+  .btn.accent:hover {
+    background: var(--accent-deep);
+    border-color: var(--accent-deep);
+  }
+
+  .btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  .btn .arrow { font-size: 18px; line-height: 1; }
+
+  /* Results */
+  .results-header {
+    text-align: left;
+    margin-bottom: 64px;
+  }
+
+  .results-header .eyebrow { margin-bottom: 24px; }
+  .results-header h2 { margin-bottom: 16px; max-width: 600px; }
+  .results-header h2 .em { font-style: italic; color: var(--accent); }
+  .results-meta {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  /* The big 2x2 framework figure */
+  .figure {
+    margin: 48px 0 64px;
+  }
+
+  .figure-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  .framework {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    grid-template-rows: 60px 1fr 1fr;
+    background: var(--paper);
+    border: 0.5px solid var(--line);
+    position: relative;
+  }
+
+  .framework > div {
+    border-right: 0.5px solid var(--line-soft);
+    border-bottom: 0.5px solid var(--line-soft);
+  }
+
+  .axis-corner {
+    background: var(--paper);
+  }
+
+  .axis-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--paper);
+  }
+
+  .axis-side {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: var(--paper);
+  }
+
+  .quadrant {
+    padding: 28px 28px 32px;
+    background: var(--paper);
+    position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .quadrant-name {
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+    font-variation-settings: "opsz" 72;
+  }
+
+  .quadrant-blurb {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 24px;
+  }
+
+  .quadrant-score {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .score-number {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--accent);
+    font-variation-settings: "opsz" 144;
+  }
+
+  .score-band {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+  }
+
+  .score-bar {
+    height: 2px;
+    background: var(--line);
+    margin-top: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Interpretation */
+  .interp {
+    margin: 80px 0;
+  }
+
+  .interp h3 {
+    margin-bottom: 32px;
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .interp p {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    line-height: 1.65;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .interp p:last-child { margin-bottom: 0; }
+
+  .interp strong {
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* Reflection */
+  .reflect {
+    margin: 80px 0;
+    padding: 48px 0;
+    border-top: 0.5px solid var(--line);
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .reflect h3 {
+    margin-bottom: 32px;
+    font-style: italic;
+  }
+
+  .reflect-item {
+    padding: 24px 0;
+    border-bottom: 0.5px solid var(--line-soft);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .reflect-item:last-child { border-bottom: none; }
+
+  .reflect-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+
+  .reflect-text {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  /* Mode-by-mode detail section */
+  .mode-detail {
+    margin: 80px 0;
+  }
+
+  .mode-detail > h3 {
+    margin-bottom: 48px;
+    font-style: italic;
+  }
+
+  .mode-card {
+    padding: 40px 0;
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .mode-card:last-of-type { border-bottom: none; }
+
+  .mode-card-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 0.5px solid var(--line-soft);
+  }
+
+  .mode-card-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.75rem;
+    color: var(--accent);
+    font-variation-settings: "opsz" 72;
+    line-height: 1;
+  }
+
+  .mode-card-score {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .mode-card-score .val {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--ink);
+    margin-left: 8px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0;
+    font-variation-settings: "opsz" 36;
+  }
+
+  .mode-card-benchmark {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted-light);
+    margin-top: 8px;
+    font-style: normal;
+    text-align: right;
+  }
+
+  .mode-card-benchmark .above { color: var(--accent); }
+  .mode-card-benchmark .below { color: var(--muted); }
+
+  .mode-card-body {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--ink-soft);
+    font-variation-settings: "opsz" 24;
+  }
+
+  .mode-card-body strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .mode-card-body em.cite {
+    font-style: italic;
+    color: var(--ink);
+  }
+
+  .mode-card-question {
+    margin-top: 24px;
+    padding: 18px 0 0 24px;
+    border-left: 2px solid var(--accent-soft);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--accent-deep);
+    line-height: 1.55;
+    margin-left: 0;
+  }
+
+  /* Your notes — echoes the in-section reflections back in results */
+  .notes-section {
+    margin: 80px 0;
+    padding-top: 48px;
+    border-top: 0.5px solid var(--line);
+  }
+
+  .notes-section > h3 {
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  .notes-item {
+    padding: 24px 0;
+    border-bottom: 0.5px solid var(--line-soft);
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .notes-item:last-child { border-bottom: none; }
+
+  .notes-label {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--accent);
+  }
+
+  .notes-text {
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    white-space: pre-wrap;
+  }
+
+  @media (max-width: 720px) {
+    .notes-item { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+  @media (max-width: 720px) {
+    .mode-card-header {
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
+    .mode-card-title { font-size: 1.4rem; }
+    .mode-card-body { font-size: 1.02rem; }
+    .mode-card-question { font-size: 1rem; padding-left: 16px; }
+  }
+
+  /* Footer of results */
+  .results-footer {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 0.5px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .citation {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 320px;
+    line-height: 1.5;
+  }
+
+  /* Mobile */
+  @media (max-width: 720px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 24px; }
+    .section { padding: 60px 0; }
+    .hero { padding-top: 8vh; }
+    .progress-label { right: 20px; top: 14px; }
+    .question-text { font-size: 1.15rem; }
+    .likert button { font-size: 17px; height: 48px; }
+    .anchor-labels { font-size: 11px; }
+    .framework {
+      grid-template-columns: 50px 1fr 1fr;
+      grid-template-rows: 44px 1fr 1fr;
+    }
+    .quadrant { padding: 20px; min-height: 160px; }
+    .quadrant-name { font-size: 1.3rem; }
+    .quadrant-blurb { font-size: 12px; margin-bottom: 16px; }
+    .score-number { font-size: 2.5rem; }
+    .axis-top, .axis-side { font-size: 10px; letter-spacing: 0.08em; }
+    .reflect-item {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .nav { flex-direction: column-reverse; align-items: stretch; }
+    .nav .btn { justify-content: center; }
+    .results-footer { flex-direction: column; align-items: stretch; }
+    .interp p { font-size: 1.05rem; }
+  }
+
+  /* Print fallback */
+  @media print {
+    .nav, .progress-rail, .progress-label, .results-footer { display: none; }
+    body { background: white; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+<div class="progress-label" id="progressLabel">Begin</div>
+
+<!-- SECTION 0: HERO / INTRO -->
+<section class="section active" id="section-0">
+  <div class="wrap hero">
+    <div class="eyebrow">A self-evaluation · 16 questions · about 15 minutes with reflection</div>
+    <h1>How <span class="em">open</span> is your innovation?</h1>
+    <p class="lead">
+      Most firms talk about open innovation. Far fewer have a clear picture of which modes they actually use, which they neglect, and what their pattern is costing them.
+    </p>
+    <p class="lead" style="margin-top: 16px;">
+      This evaluation maps your organization across four modes — sourcing, acquiring, selling, and revealing — and reads the pattern back to you.
+    </p>
+    <p class="lead" style="margin-top: 16px; font-style: italic;">
+      These questions are about firm-level patterns over the past few years — how your organization is configured for open innovation as a whole, not how any single project or initiative played out.
+    </p>
+
+    <div class="framework-mini">
+      <div>
+        <div class="mode italic">Sourcing</div>
+        <div class="tag">Inbound · non-pecuniary</div>
+      </div>
+      <div>
+        <div class="mode italic">Revealing</div>
+        <div class="tag">Outbound · non-pecuniary</div>
+      </div>
+      <div>
+        <div class="mode italic">Acquiring</div>
+        <div class="tag">Inbound · pecuniary</div>
+      </div>
+      <div>
+        <div class="mode italic">Selling</div>
+        <div class="tag">Outbound · pecuniary</div>
+      </div>
+    </div>
+
+    <div class="nav" style="margin-top: 48px; border-top: none; padding-top: 0;">
+      <span></span>
+      <button class="btn primary" onclick="next()">Begin evaluation <span class="arrow">→</span></button>
+    </div>
+
+    <div class="attribution">
+      Based on <em>Dahlander &amp; Gann (2010), "How open is innovation?"</em> Research Policy 39(6), and <em>Dahlander, Gann &amp; Wallin (2021), "How open is innovation? A retrospective and ideas forward."</em> Research Policy 50(4).
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: DEMOGRAPHICS -->
+<section class="section" id="section-1">
+  <div class="wrap">
+    <div class="step-indicator">Step 1 of 6</div>
+    <div class="eyebrow" style="margin-bottom: 20px;">Context</div>
+    <h2>First, a few details</h2>
+    <p class="lead" style="margin: 16px 0 48px; max-width: 540px;">
+      Used to frame your results against typical patterns in your industry. Responses are stored anonymously to inform future cohorts.
+    </p>
+
+    <div class="field">
+      <label for="industry">Industry</label>
+      <select id="industry">
+        <option value="">Select your industry</option>
+        <option>Manufacturing &amp; industrial</option>
+        <option>Automotive &amp; mobility</option>
+        <option>Pharmaceuticals &amp; biotech</option>
+        <option>Healthcare &amp; medical devices</option>
+        <option>Technology, software &amp; IT</option>
+        <option>Financial services &amp; insurance</option>
+        <option>Energy &amp; utilities</option>
+        <option>Consumer goods &amp; retail</option>
+        <option>Telecommunications &amp; media</option>
+        <option>Chemicals &amp; materials</option>
+        <option>Professional services &amp; consulting</option>
+        <option>Aerospace &amp; defense</option>
+        <option>Construction &amp; real estate</option>
+        <option>Public sector / non-profit</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="size">Company size</label>
+      <select id="size">
+        <option value="">Select a size range</option>
+        <option>Fewer than 50 employees</option>
+        <option>50 to 250 employees</option>
+        <option>250 to 1,000 employees</option>
+        <option>1,000 to 5,000 employees</option>
+        <option>5,000 to 50,000 employees</option>
+        <option>More than 50,000 employees</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="role">Your role <span style="text-transform: none; letter-spacing: 0; color: var(--muted-light); font-weight: 400;">(optional)</span></label>
+      <input type="text" id="role" placeholder="e.g., Head of innovation, CTO, business unit lead">
+    </div>
+
+    <div class="nav">
+      <button class="btn" onclick="back()"><span class="arrow">←</span> Back</button>
+      <button class="btn primary" id="next-1" onclick="next()" disabled>Continue <span class="arrow">→</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- SECTIONS 2-5: QUESTION BLOCKS (injected by JS) -->
+<section class="section" id="section-2"></section>
+<section class="section" id="section-3"></section>
+<section class="section" id="section-4"></section>
+<section class="section" id="section-5"></section>
+
+<!-- SECTION 6: RESULTS -->
+<section class="section" id="section-6"></section>
+
+<script>
+  const dimensions = [
+    {
+      key: 'sourcing',
+      name: 'Sourcing',
+      tagline: 'Inbound · Non-pecuniary',
+      blurb: 'Scanning and pulling in external ideas without direct payment — from universities, communities, customers, competitors.',
+      items: [
+        'We systematically scan external sources — universities, startups, competitors, customers, suppliers — for ideas relevant to our business.',
+        'We engage user communities, lead users, or customers as a deliberate source of innovation input.',
+        'We use crowdsourcing, idea contests, or open challenges to surface ideas from outside our organization.',
+        'We deliberately invest in roles or relationships — scouts, liaisons, partnerships — whose explicit purpose is to channel distant external ideas into our innovation work.'
+      ]
+    },
+    {
+      key: 'acquiring',
+      name: 'Acquiring',
+      tagline: 'Inbound · Pecuniary',
+      blurb: 'Paying for external ideas, technologies, or capabilities through licensing, M&A, contracts, or venture investment.',
+      items: [
+        'We in-license patents, technologies, or know-how from external partners for use in our products and services.',
+        'We acquire startups or smaller firms specifically to gain access to their technologies or capabilities.',
+        'We run formal R&D contracts or sponsored research with universities and research institutes.',
+        'We use corporate venture capital, accelerators, or similar vehicles to access external innovation.'
+      ]
+    },
+    {
+      key: 'selling',
+      name: 'Selling',
+      tagline: 'Outbound · Pecuniary',
+      blurb: 'Commercializing internal ideas externally — out-licensing, spin-outs, or divesting inventions you do not use.',
+      items: [
+        'We actively out-license technologies and patents that we do not use internally.',
+        'Revenue from licensing or selling our intellectual property is a meaningful part of our business.',
+        'We spin out or divest inventions to firms better positioned to commercialize them.',
+        'We have a dedicated function — people, processes, incentives — responsible for monetizing unused IP.'
+      ]
+    },
+    {
+      key: 'revealing',
+      name: 'Revealing',
+      tagline: 'Outbound · Non-pecuniary',
+      blurb: 'Selectively giving ideas away to shape the environment — open source, standards, public knowledge sharing.',
+      items: [
+        'We contribute to open-source projects, standards bodies, or public consortia in our field.',
+        'We deliberately reveal selected internal technologies or know-how to shape industry direction.',
+        'We share research findings, white papers, or technical knowledge publicly without expecting direct payment.',
+        'We use revealing strategically — for example, to attract talent, partners, complementors, or legitimacy.'
+      ]
+    }
+  ];
+
+  const anchorLeft = 'Strongly disagree';
+  const anchorRight = 'Strongly agree';
+  const totalSteps = 7;
+
+  // ─────────────────────────────────────────────────────────────────────
+  // INDUSTRY CONTEXT — research-grounded paragraphs about typical
+  // open-innovation patterns by industry. No fabricated numbers; only
+  // what the literature actually documents. Edit freely.
+  // ─────────────────────────────────────────────────────────────────────
+  const INDUSTRY_CONTEXT = {
+    'Manufacturing & industrial': 'Manufacturing has historically been a relatively closed-innovation industry, organized around supplier hierarchies. Chesbrough and Crowther showed open innovation is now common in mature sectors too, but the typical pattern remains moderate sourcing — mostly from suppliers and lead customers — with chronically underused selling and revealing. Recent work on digitalization (Björkdahl) suggests data-driven services are now forcing reconsideration of all four modes.',
+
+    'Automotive & mobility': 'Automotive has shifted markedly in the last decade. Once a closed industry organized around tier-1 supplier relationships, it has become active in acquiring through CVC, accelerators, and startup partnerships — particularly in EV and autonomy. Revealing remains low by historical default, though Tesla\'s 2014 patent pledge and German manufacturers\' joint work on a Google Maps alternative point to selective revealing becoming a strategic instrument.',
+
+    'Pharmaceuticals & biotech': 'Pharma is the textbook case for inbound openness. The alliance-rich biotech ecosystem (Powell and colleagues) made in-licensing and sponsored research routine; programs like Bayer\'s Grants4Targets and Janssen\'s ecosystem strategy formalize this. Selling is more contested — Chesbrough and Chen documented the recovery of abandoned compounds as a missed opportunity, with cultural resistance ("we might still need it") as the binding constraint.',
+
+    'Healthcare & medical devices': 'Healthcare and devices share much of pharma\'s pattern — heavy in-licensing, formal research partnerships with universities and medical centers — but with stronger regulatory friction and tighter IP focus. Revealing tends to be low; selling is moderate and concentrated in mature technologies.',
+
+    'Technology, software & IT': 'Software and tech sit at the open end of every dimension. Open source made selective revealing core to commercial strategy — Microsoft\'s GitHub acquisition and IBM\'s acquisition of Red Hat both signal the corporatization of communities once seen as separate from corporate strategy. Platform strategies blur the inbound/outbound distinction. The risk in this industry is rarely "are we open enough"; it is whether you are capturing the value you create.',
+
+    'Financial services & insurance': 'Financial services were historically among the most closed industries, organized around proprietary models and regulatory moats. The fintech wave changed this — open banking APIs, accelerators, and CVC arms are now common — while revealing remains low under regulatory and security constraints. The dominant tension is between the speed of external partnering and the compliance overhead it carries.',
+
+    'Energy & utilities': 'Energy has been a slow-moving industry for open innovation, constrained by infrastructure scale and regulatory regimes. Research on new entrants in solar (Zobel, Balsmeier, and Chesbrough) shows that more open innovation tends to coincide with more patenting — openness as market entry rather than as defense. Incumbents typically run heavy acquiring through CVC with limited revealing.',
+
+    'Consumer goods & retail': 'Consumer goods include the canonical open-innovation case: P&G\'s Connect+Develop (Huston and Sakkab) made systematic sourcing from outside R&D a core strategy. Strong sourcing — especially from users, lead customers, and reseller networks — is typical. Acquiring is concentrated in brand acquisitions rather than technology. Revealing remains rare; selling rarer.',
+
+    'Telecommunications & media': 'Telecoms operate in a heavy-patenting, heavy-licensing world — selling is meaningful here in ways it is not in most industries. Standards work is a significant outbound channel. Sourcing tends to be formalized through scout offices and vendor partnerships. The shift from infrastructure-led to platform-led competition is forcing a reconsideration of all four modes.',
+
+    'Chemicals & materials': 'Chemicals share much of pharma\'s structural conservatism but with stronger appropriability regimes and longer cycles. In-licensing and joint research with universities are common; revealing is unusual. The IMEC consortium in nano-electronics (Leten and colleagues) is a notable counter-example, where shared IP frameworks enable collaboration that bilateral deals could not.',
+
+    'Professional services & consulting': 'Professional services are paradoxical — knowledge-intensive yet typically closed within firm boundaries. Sourcing happens but is informal and individual rather than organizational. Acquiring is rare. Selling and revealing are constrained by client confidentiality and the difficulty of separating proprietary method from delivery.',
+
+    'Aerospace & defense': 'Aerospace and defense run heavily closed — security classifications, regulatory environments, and dual-use concerns all limit what can be shared. Sourcing is formalized through prime-supplier relationships; acquiring concentrates on highly specialized targets. Lifshitz-Assaf\'s study of NASA opening up to outside problem-solvers documents how difficult — and how productive — even partial revealing can be in this context.',
+
+    'Construction & real estate': 'Construction has been among the most closed traditional industries — fragmented, project-based, with limited central R&D. Sourcing, when it happens, is supplier-led. Revealing and selling are rare. Platform-enabled coordination and data-driven services may be shifting this, but baseline openness across all four modes remains low.',
+
+    'Public sector / non-profit': 'Public sector and non-profit organizations often lead in revealing — through open data, public research outputs, and citizen science (Sauermann and Franzoni). Sourcing through communities is common and frequently effective. The pecuniary modes are constrained: acquiring and selling sit inside procurement regimes and mandate restrictions that private firms do not face.',
+
+    'Other': 'Open-innovation patterns vary widely by industry. The framework itself is industry-agnostic, but which modes dominate and which sit underused is shaped by appropriability regimes, technological maturity, and competitive structure.',
+
+    'default': 'Open-innovation patterns vary widely by industry. The framework itself is industry-agnostic, but which modes dominate and which sit underused is shaped by appropriability regimes, technological maturity, and competitive structure.'
+  };
+  // ─────────────────────────────────────────────────────────────────────
+
+  // ─────────────────────────────────────────────────────────────────────
+  // DATA PERSISTENCE
+  // Every completed evaluation is saved to localStorage on the user's
+  // device. To enable cross-user aggregation (so real benchmarks can
+  // replace the qualitative industry context above), set DATA_ENDPOINT
+  // to a backend URL that accepts POST requests with JSON. Leave empty
+  // and nothing leaves the browser.
+  //
+  // To export all locally-saved responses on a single device, open the
+  // browser console and run: exportResponses()
+  // ─────────────────────────────────────────────────────────────────────
+  const DATA_ENDPOINT = ''; // e.g., 'https://your-backend.example.com/oi-responses'
+  // ─────────────────────────────────────────────────────────────────────
+
+  const REFLECTION_PROMPTS = {
+    sourcing:  'Where did your last meaningful external idea come from — and how did it actually get into your work? Leave blank if nothing concrete comes to mind; that itself is information.',
+    acquiring: 'Describe your most recent meaningful acquisition, in-licensing deal, or sponsored research relationship — and whether it is still creating value. Leave blank if nothing comes to mind.',
+    selling:   'When did you last license out, divest, or spin out something you owned? "Not in recent memory" is itself an answer worth noting.',
+    revealing: 'Name one technology, finding, or piece of knowledge your organization deliberately revealed in the past year — and what you got back. Leave blank if you cannot name one.'
+  };
+
+  const state = {
+    step: 0,
+    demographics: {},
+    answers: {},
+    reflections: {}
+  };
+  dimensions.forEach(d => {
+    state.answers[d.key] = [null, null, null, null];
+    state.reflections[d.key] = '';
+  });
+
+  // Save a completed response — always to localStorage, optionally to backend
+  function saveResponse(scores) {
+    const record = {
+      timestamp: new Date().toISOString(),
+      industry: state.demographics.industry,
+      size: state.demographics.size,
+      // role and reflections are NOT sent to backend (privacy); they remain local
+      role: state.demographics.role || null,
+      scores: scores,
+      answers: state.answers,
+      reflections: state.reflections
+    };
+
+    // Save to localStorage on the user's device
+    try {
+      const existing = JSON.parse(localStorage.getItem('oi_responses') || '[]');
+      existing.push(record);
+      localStorage.setItem('oi_responses', JSON.stringify(existing));
+    } catch (e) { /* storage disabled or full — silent fail */ }
+
+    // If a backend is configured, send an anonymized payload
+    if (DATA_ENDPOINT) {
+      const anon = {
+        timestamp: record.timestamp,
+        industry: record.industry,
+        size: record.size,
+        scores: scores,
+        answers: state.answers
+      };
+      fetch(DATA_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(anon)
+      }).catch(() => { /* don't disrupt the user if network fails */ });
+    }
+  }
+
+  // Admin: export all locally-saved responses from this browser as JSON
+  window.exportResponses = function() {
+    const data = localStorage.getItem('oi_responses') || '[]';
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'oi-responses-' + new Date().toISOString().slice(0, 10) + '.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    console.log('Exported responses. Count:', JSON.parse(data).length);
+  };
+
+  // Build question sections
+  dimensions.forEach((dim, idx) => {
+    const stepNum = idx + 2;
+    const el = document.getElementById('section-' + stepNum);
+    const items = dim.items.map((item, qi) => `
+      <div class="question-block">
+        <div class="question-num">Statement ${qi + 1} of 4</div>
+        <div class="question-text">${item}</div>
+        <div class="likert" data-dim="${dim.key}" data-qi="${qi}">
+          ${[1,2,3,4,5].map(v => `<button type="button" data-val="${v}" onclick="select('${dim.key}', ${qi}, ${v}, this)">${v}</button>`).join('')}
+        </div>
+        <div class="anchor-labels">
+          <span>${anchorLeft}</span>
+          <span>${anchorRight}</span>
+        </div>
+      </div>
+    `).join('');
+
+    el.innerHTML = `
+      <div class="wrap">
+        <div class="step-indicator">Step ${stepNum} of 6</div>
+        <div class="q-section-header">
+          <div class="eyebrow">${dim.tagline}</div>
+          <h2>${dim.name}</h2>
+          <p class="lead">${dim.blurb}</p>
+        </div>
+        ${items}
+        <div class="reflection-prompt">
+          <div class="reflection-prompt-label">One reflection · optional</div>
+          <div class="reflection-prompt-text">${REFLECTION_PROMPTS[dim.key]}</div>
+          <textarea id="reflection-${dim.key}" placeholder="Write a sentence or two, or leave blank…" oninput="saveReflection('${dim.key}', this.value)"></textarea>
+          <div class="reflection-prompt-hint">Writing nothing is fine. Writing "we have not done this in years" is even better.</div>
+        </div>
+        <div class="nav">
+          <button class="btn" onclick="back()"><span class="arrow">←</span> Back</button>
+          <button class="btn primary" id="next-${stepNum}" onclick="next()" disabled>Continue <span class="arrow">→</span></button>
+        </div>
+      </div>
+    `;
+  });
+
+  function saveReflection(dimKey, text) {
+    state.reflections[dimKey] = text;
+  }
+
+  function select(dimKey, qIdx, val, btn) {
+    state.answers[dimKey][qIdx] = val;
+    const group = btn.parentElement;
+    group.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    checkComplete();
+  }
+
+  function checkComplete() {
+    const s = state.step;
+    if (s >= 2 && s <= 5) {
+      const dim = dimensions[s - 2];
+      const complete = state.answers[dim.key].every(v => v !== null);
+      const btn = document.getElementById('next-' + s);
+      if (btn) btn.disabled = !complete;
+    } else if (s === 1) {
+      const ind = document.getElementById('industry').value;
+      const size = document.getElementById('size').value;
+      const btn = document.getElementById('next-1');
+      if (btn) btn.disabled = !(ind && size);
+    }
+  }
+
+  document.getElementById('industry').addEventListener('change', checkComplete);
+  document.getElementById('size').addEventListener('change', checkComplete);
+
+  function next() {
+    if (state.step === 1) {
+      state.demographics.industry = document.getElementById('industry').value;
+      state.demographics.size = document.getElementById('size').value;
+      state.demographics.role = document.getElementById('role').value;
+    }
+    go(state.step + 1);
+  }
+
+  function back() { go(state.step - 1); }
+
+  function go(n) {
+    document.getElementById('section-' + state.step).classList.remove('active');
+    state.step = n;
+    document.getElementById('section-' + state.step).classList.add('active');
+
+    // Progress
+    const pct = (n / (totalSteps - 1)) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    const labels = ['Begin', 'Context', 'Sourcing', 'Acquiring', 'Selling', 'Revealing', 'Results'];
+    document.getElementById('progressLabel').textContent = labels[n];
+
+    if (state.step === 6) renderResults();
+    checkComplete();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function avg(arr) { return arr.reduce((a,b) => a+b, 0) / arr.length; }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  function band(s) {
+    if (s >= 3.75) return 'High';
+    if (s >= 2.5) return 'Moderate';
+    return 'Low';
+  }
+
+  function renderResults() {
+    const scores = {};
+    dimensions.forEach(d => { scores[d.key] = avg(state.answers[d.key]); });
+
+    const inbound = (scores.sourcing + scores.acquiring) / 2;
+    const outbound = (scores.selling + scores.revealing) / 2;
+    const pecuniary = (scores.acquiring + scores.selling) / 2;
+    const nonPec = (scores.sourcing + scores.revealing) / 2;
+    const overall = (inbound + outbound) / 2;
+
+    // Industry context (qualitative — no fabricated numbers)
+    const industryContext = INDUSTRY_CONTEXT[state.demographics.industry] || INDUSTRY_CONTEXT['default'];
+
+    // Save the response (localStorage always; backend if DATA_ENDPOINT set)
+    saveResponse(scores);
+
+    const dimName = k => dimensions.find(d => d.key === k).name;
+
+    // ---- OVERALL INTERPRETATION (research-informed) ----
+    const interp = [];
+
+    // First paragraph: industry context (research-grounded, no fake numbers)
+    interp.push(`<strong>What the research says about your industry.</strong> ${industryContext}`);
+
+    // Second paragraph: overall level of openness
+    if (overall >= 3.5) {
+      interp.push(`Your overall openness score is ${overall.toFixed(1)}. You operate with a broad open-innovation portfolio — most modes are active simultaneously, which is rare. The strategic question is no longer whether to open up but whether the coordination across so many modes is paying off. The literature on the boundaries of the firm distinguishes two kinds of cost that rise with openness: <em class="cite">coordination costs</em>, from managing relationships across organizational boundaries, and <em class="cite">competition costs</em>, from the risk that partners act opportunistically and that internal resources leak to competitors. Both rise non-linearly, and both are easier to spot in retrospect than in the moment.`);
+    } else if (overall >= 2.5) {
+      interp.push(`Your overall openness score is ${overall.toFixed(1)}. Your pattern is selectively open: some modes work, others sit underused. This is the most common pattern in the data, and it is often the right answer — the original argument for openness was never that more is better, but that the right configuration depends on industry, technology, and complementary assets. The honest question is whether your selectivity reflects deliberate strategic choice or path dependence: this is just where the organization ended up, and no one has re-examined it lately.`);
+    } else {
+      interp.push(`Your overall openness score is ${overall.toFixed(1)}. That is not automatically wrong. Internal R&D historically emerged because organizing inside the firm was often cheaper than acquiring ideas from the market (<em class="cite">Mowery</em>), and some technological positions still reward closed approaches — particularly where strong appropriability and complementary assets favor internal commercialization. But the pattern is worth interrogating directly: is this a chosen position you could defend on a slide, or a default one that has accumulated by inaction?`);
+    }
+
+    const gap = inbound - outbound;
+    if (gap >= 1.0) {
+      interp.push(`You tilt heavily <strong>inbound</strong> (${inbound.toFixed(1)} vs ${outbound.toFixed(1)} outbound) — like most firms in the data. Inbound flows are easier to defend internally because they are visible and countable: licenses signed, scout reports filed, partner contracts in place. Outbound flows often produce more lasting strategic effects — shaping standards, attracting talent, ecosystem position — but are harder to justify because their value is indirect. The asymmetry between how firms allocate attention to inbound versus outbound is one of the most consistent findings in the field, and one of the least examined inside firms themselves.`);
+    } else if (gap <= -1.0) {
+      interp.push(`Unusually, your <strong>outbound activity exceeds your inbound</strong> (${outbound.toFixed(1)} vs ${inbound.toFixed(1)}). Either you are running a platform-style strategy where releasing IP is the business model, or you are outsourcing strategic flexibility you may want back. The research on platform strategies emphasizes that profitable outbound openness requires <em class="cite">complementary assets</em> you can defend (<em class="cite">Teece</em>) — without them, you are subsidizing competitors who will recognize the gift before you do.`);
+    } else {
+      interp.push(`Your <strong>inbound and outbound activity are roughly balanced</strong> (${inbound.toFixed(1)} vs ${outbound.toFixed(1)}). Most firms tilt heavily inbound, so balance is notable. It suggests you are treating outbound as a genuine strategic lever rather than an afterthought — which the literature consistently identifies as a missed opportunity in the typical firm. The next question is whether your outbound activity is producing capturable value or producing externalities that accrue to others.`);
+    }
+
+    const moneyGap = pecuniary - nonPec;
+    if (Math.abs(moneyGap) >= 1.0) {
+      if (moneyGap > 0) {
+        interp.push(`Your openness is <strong>transactional</strong>. You move ideas through contracts more than through communities. This is legible and measurable — executives understand licensing revenue and CVC spend — but the research emphasizes that non-pecuniary modes often produce the indirect benefits that drive long-run advantage: legitimacy, talent attraction, ecosystem influence. These rarely show up on a balance sheet but consistently show up in studies of why some firms sustain advantage and others do not.`);
+      } else {
+        interp.push(`Your openness leans <strong>non-pecuniary</strong>. You engage through scanning, communities, and revealing more than through licensing and acquisition. The research finds genuine value in this position, but consistently finds that firms in it struggle to <em class="cite">capture</em> what they create. The argument from <em class="cite">Teece</em> applies directly: without complementary assets and a deliberate capture strategy, non-pecuniary openness produces externalities for others — often for faster, more transactional competitors who recognize the opportunity before you do.`);
+      }
+    }
+
+    // ---- MODE-BY-MODE (research-informed paragraphs) ----
+    function bandKey(s) {
+      if (s >= 3.75) return 'high';
+      if (s >= 2.5) return 'moderate';
+      return 'low';
+    }
+
+    const modeFeedback = {
+      sourcing: {
+        high: {
+          body: `The advantage you are capturing is real — wide external search expands the menu of ideas and increases the chance of finding radical solutions to problems your internal teams have not framed (<em class="cite">Laursen and Salter</em>). The risk is on the other side of the curve. Past a point, the relationship between external sources and innovative performance bends downward: more inputs means more attention spent choosing and combining, and the marginal idea you scan becomes worth less than the focus you give up. <strong>NIH syndrome</strong> — internal resistance to outside ideas — is what often kills integration even when scanning is strong.`,
+          question: `Where in your organization does external knowledge actually land — and who is responsible for converting it into something used, rather than something filed?`
+        },
+        moderate: {
+          body: `You scan, but selectively. This is the most common pattern in the data and often a defensible one — the curvilinear evidence suggests that beyond a certain breadth, additional sources cost more attention than they add ideas. The honest question is whether your selectivity is deliberate (you know which sources matter for your industry and stage) or default (you would see more if you looked more, and you have never tested where the right line sits).`,
+          question: `If you mapped the past five years of useful ideas, how many came from outside? If the share is small, is that the industry — or the system you have built?`
+        },
+        low: {
+          body: `The literature is consistent that firms in most industries benefit from broader external search, especially at the front end of innovation. Closed search is associated with incremental, path-dependent innovation — you keep finding variations on what you already know how to find. The advantage you are foregoing is not a single radical idea; it is the accumulated optionality of seeing what others see, sooner than they make you see it.`,
+          question: `What is the cost to your organization of waiting for the right idea to arrive internally?`
+        }
+      },
+      acquiring: {
+        high: {
+          body: `Buying access — through licensing, M&A, CVC, sponsored research — is your dominant inbound channel. The advantage is speed and access to <strong>complementarities</strong> you could not build at home. The research issues two warnings. First, <em class="cite">absorptive capacity</em> matters more than the deal itself: <em class="cite">Cohen and Levinthal</em>'s enduring finding is that you can only integrate what you partly already understand, which is why internal R&D is the price of admission to making external R&D useful. Second, the relationship between knowledge relatedness and innovation is curvilinear — what is too close to your own knowledge adds little, what is too distant resists integration (<em class="cite">Ahuja and Katila</em>). The deals themselves are the easy part.`,
+          question: `Of your major acquisitions and licensing deals in the past three years, how many are still creating value — and what does the pattern of failures tell you about where you should not buy?`
+        },
+        moderate: {
+          body: `You buy when you need to, but it is not your default. This can be a strength — over-relying on acquisition has its own risks, including outsourcing capabilities that turn out to be more strategically important than they looked, and gradually weakening the internal R&D that makes any external R&D absorbable in the first place. But it can also mean you are slow to act when speed matters, and the case for buying gets made too late.`,
+          question: `Where in your roadmap have you been building something for years that a smaller firm has already solved, and that you could have bought, integrated, and moved on from?`
+        },
+        low: {
+          body: `You are either confident in what you can build internally, or you under-invest in formal external channels. Both can be defensible, but the literature is clear that internal R&D and external acquisition are usually <em class="cite">complements</em>, not substitutes. Firms that do only one tend to be slower and pay more. There is also a survivor bias in "we build everything" narratives — the technologies you decided not to build are invisible in retrospect, but they were not free.`,
+          question: `What is the real reason you are not acquiring more — capability you can defend, or comfort with what you already do?`
+        }
+      },
+      selling: {
+        high: {
+          body: `Active monetization of unused IP is rare — most firms hoard. You are doing what <em class="cite">Chesbrough</em> argued firms systematically fail to do: capturing the spillover value of R&D, the kind of value Xerox famously left on the table for spin-offs that eventually exceeded Xerox's own market cap. The risks are subtler. <em class="cite">Arrow's disclosure paradox</em> warns that you have to reveal enough to interest a buyer but not so much that they no longer need to pay. And aggressive licensing of technologies you might still use is a slow leak of strategic position that is invisible until a competitor has built on it.`,
+          question: `Which of the technologies you license out today might you regret in five years, when the buyer has used them to grow into your space?`
+        },
+        moderate: {
+          body: `You license selectively. The literature suggests most firms could do meaningfully more here — <em class="cite">Gambardella and colleagues</em> estimate the market for technology could be roughly 70% larger than it is. The constraint is rarely the IP itself; it is whether anyone in the organization has both the time and the incentive to find buyers. The Xerox case is the cautionary tale; the IBM patent-licensing operation is the demonstration that selling at scale can be built deliberately.`,
+          question: `Who in your organization wakes up thinking about monetizing dormant IP? If the answer is no one, the system is producing exactly the result you have.`
+        },
+        low: {
+          body: `You are in the majority — the literature documents striking under-utilization of out-licensing. Bayer employs thousands of R&D scientists and only a handful of people in out-licensing; the pattern is industry-wide. <strong>NSH syndrome</strong> — not-sold-here — is the cultural side of this: scientists over-value the technologies they developed and resist seeing them licensed to outsiders, especially competitors. Whether your dormant IP is worth selling is, in practice, a question of whether anyone has been resourced and incentivized to find out.`,
+          question: `How many of your patents are genuinely unused? If you do not know, who in your organization should — and why doesn't anyone today?`
+        }
+      },
+      revealing: {
+        high: {
+          body: `Selective revealing is the most strategically subtle of the four modes. Done well, it does what <em class="cite">Allen's</em> 19th-century iron-industry study showed it could do: marshal external resources you could not pay for, build legitimacy, and accelerate cumulative innovation in directions that favor you (<em class="cite">Henkel</em>). Done poorly, it is leakage. The hinge is <em class="cite">complementary assets</em> (<em class="cite">Teece</em>): you reveal the technology, but capture value through what surrounds it — distribution, brand, manufacturing, downstream services, ecosystem position. Without those, revealing is a transfer rather than a strategy.`,
+          question: `When you reveal, what are the complementary assets that ensure others cannot out-compete you on what you have just handed them?`
+        },
+        moderate: {
+          body: `You reveal occasionally, when it looks strategically useful or low-risk. The research suggests this middle ground can leave value on the table in both directions: small revealing earns small signaling value, and large revealing without a deliberate capture strategy is hard to defend afterwards. <em class="cite">Henkel's</em> work on selective revealing emphasizes that the choice of what to reveal is itself a strategic instrument — not a residual decision left to legal or to engineering.`,
+          question: `Is your current revealing the result of deliberate choices, or the default of what no one objected strongly to?`
+        },
+        low: {
+          body: `You treat your IP as a fortress. This is defensible — internal resources can leak to competitors, and the benefits of revealing are notoriously hard to capture. But the research suggests you may be foregoing the indirect benefits revealing produces: shaping standards, attracting talent and complementors, building legitimacy. Tesla's 2014 patent pledge is the textbook example — it gave up little (the patents were not generating licensing revenue) and signaled to the entire EV ecosystem that the competition was against combustion, not against Tesla. IBM did similar work with Linux in software.`,
+          question: `What could you reveal that would cost you almost nothing — because you were not using it anyway — but reshape how others see your industry?`
+        }
+      }
+    };
+
+    const modeCards = dimensions.map(d => {
+      const s = scores[d.key];
+      const b = bandKey(s);
+      const fb = modeFeedback[d.key][b];
+      const bandLabel = band(s);
+      return `
+        <div class="mode-card">
+          <div class="mode-card-header">
+            <div class="mode-card-title">${d.name}</div>
+            <div class="mode-card-score">
+              <div>${bandLabel} <span class="val">${s.toFixed(1)}</span></div>
+            </div>
+          </div>
+          <div class="mode-card-body">${fb.body}</div>
+          <div class="mode-card-question">${fb.question}</div>
+        </div>
+      `;
+    }).join('');
+
+    // Build the optional notes section (only if they wrote something)
+    const writtenReflections = dimensions
+      .filter(d => state.reflections[d.key] && state.reflections[d.key].trim().length > 0)
+      .map(d => `
+        <div class="notes-item">
+          <div class="notes-label">${d.name}</div>
+          <div class="notes-text">${escapeHtml(state.reflections[d.key].trim())}</div>
+        </div>
+      `).join('');
+
+    const notesSection = writtenReflections ? `
+      <div class="notes-section">
+        <h3>What you wrote</h3>
+        ${writtenReflections}
+      </div>
+    ` : '';
+
+    const meta = [state.demographics.industry, state.demographics.size];
+    if (state.demographics.role) meta.push(state.demographics.role);
+
+    document.getElementById('section-6').innerHTML = `
+      <div class="wrap" id="pdf-content">
+        <div class="results-header">
+          <div class="eyebrow">Your results</div>
+          <h2>Reading your <span class="em">pattern</span></h2>
+          <p class="results-meta">${meta.join(' · ')}</p>
+        </div>
+
+        <div class="figure">
+          <div class="figure-label">Figure — Your openness across four modes (1 = strongly disagree, 5 = strongly agree)</div>
+          <div class="framework">
+            <div class="axis-corner"></div>
+            <div class="axis-top">Inbound</div>
+            <div class="axis-top">Outbound</div>
+
+            <div class="axis-side">Non-pecuniary</div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Sourcing</div>
+                <div class="quadrant-blurb">${dimensions[0].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.sourcing.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.sourcing).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.sourcing/5)*100}"></div></div>
+              </div>
+            </div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Revealing</div>
+                <div class="quadrant-blurb">${dimensions[3].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.revealing.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.revealing).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.revealing/5)*100}"></div></div>
+              </div>
+            </div>
+
+            <div class="axis-side">Pecuniary</div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Acquiring</div>
+                <div class="quadrant-blurb">${dimensions[1].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.acquiring.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.acquiring).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.acquiring/5)*100}"></div></div>
+              </div>
+            </div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Selling</div>
+                <div class="quadrant-blurb">${dimensions[2].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.selling.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.selling).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.selling/5)*100}"></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="interp">
+          <h3>Reading your pattern</h3>
+          ${interp.map(p => `<p>${p}</p>`).join('')}
+        </div>
+
+        <div class="mode-detail">
+          <h3>Mode by mode</h3>
+          ${modeCards}
+        </div>
+
+        ${notesSection}
+
+        <div class="citation" style="margin-top: 48px;">
+          Framework and underlying research from Dahlander &amp; Gann (2010), "How open is innovation?" and Dahlander, Gann &amp; Wallin (2021), "How open is innovation? A retrospective and ideas forward." Both in <em>Research Policy</em>.
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="results-footer">
+          <button class="btn" onclick="restart()"><span class="arrow">↺</span> Start over</button>
+          <button class="btn accent" onclick="exportPDF()">Download as PDF</button>
+        </div>
+      </div>
+    `;
+
+    // Animate the bars
+    setTimeout(() => {
+      document.querySelectorAll('.score-bar-fill').forEach(el => {
+        el.style.width = el.dataset.w + '%';
+      });
+    }, 200);
+  }
+
+  function restart() {
+    dimensions.forEach(d => { state.answers[d.key] = [null, null, null, null]; });
+    state.demographics = {};
+    document.getElementById('industry').value = '';
+    document.getElementById('size').value = '';
+    document.getElementById('role').value = '';
+    document.querySelectorAll('.likert button').forEach(b => b.classList.remove('selected'));
+    go(0);
+  }
+
+  function exportPDF() {
+    const el = document.getElementById('pdf-content');
+    const opt = {
+      margin: [18, 16, 18, 16],
+      filename: 'open-innovation-self-evaluation.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, backgroundColor: '#F5F1E8', useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+    };
+    html2pdf().set(opt).from(el).save();
+  }
+</script>
+
+</body>
+</html>
