@@ -883,20 +883,20 @@
 
     <div class="framework-mini">
       <div>
-        <div class="mode italic">Sourcing</div>
-        <div class="tag">Inbound · non-pecuniary</div>
-      </div>
-      <div>
-        <div class="mode italic">Revealing</div>
-        <div class="tag">Outbound · non-pecuniary</div>
-      </div>
-      <div>
         <div class="mode italic">Acquiring</div>
         <div class="tag">Inbound · pecuniary</div>
       </div>
       <div>
         <div class="mode italic">Selling</div>
         <div class="tag">Outbound · pecuniary</div>
+      </div>
+      <div>
+        <div class="mode italic">Sourcing</div>
+        <div class="tag">Inbound · non-pecuniary</div>
+      </div>
+      <div>
+        <div class="mode italic">Revealing</div>
+        <div class="tag">Outbound · non-pecuniary</div>
       </div>
     </div>
 
@@ -1314,7 +1314,9 @@
     }
 
     const gap = inbound - outbound;
-    if (gap >= 1.0) {
+    if (inbound < 2.5 && outbound < 2.5) {
+      interp.push(`Both your <strong>inbound (${inbound.toFixed(1)}) and outbound (${outbound.toFixed(1)}) activity sit in the low band</strong>. The asymmetry question — whether you are well-balanced between the two directions — is premature here; the level question is more pressing. You are underweight on external engagement across the board, in both directions. Whichever side you choose to develop first should be a deliberate strategic move, not a default. The industry context above is the place to start: which modes does your industry typically use most, and why are you not using them?`);
+    } else if (gap >= 1.0) {
       interp.push(`You tilt heavily <strong>inbound</strong> (${inbound.toFixed(1)} vs ${outbound.toFixed(1)} outbound) — like most firms in the data. Inbound flows are easier to defend internally because they are visible and countable: licenses signed, scout reports filed, partner contracts in place. Outbound flows often produce more lasting strategic effects — shaping standards, attracting talent, ecosystem position — but are harder to justify because their value is indirect. The asymmetry between how firms allocate attention to inbound versus outbound is one of the most consistent findings in the field, and one of the least examined inside firms themselves.`);
     } else if (gap <= -1.0) {
       interp.push(`Unusually, your <strong>outbound activity exceeds your inbound</strong> (${outbound.toFixed(1)} vs ${inbound.toFixed(1)}). Either you are running a platform-style strategy where releasing IP is the business model, or you are outsourcing strategic flexibility you may want back. The research on platform strategies emphasizes that profitable outbound openness requires <em class="cite">complementary assets</em> you can defend (<em class="cite">Teece</em>) — without them, you are subsidizing competitors who will recognize the gift before you do.`);
