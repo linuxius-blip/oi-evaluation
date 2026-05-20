@@ -1453,34 +1453,6 @@
             <div class="axis-top">Inbound</div>
             <div class="axis-top">Outbound</div>
 
-            <div class="axis-side">Non-pecuniary</div>
-            <div class="quadrant">
-              <div>
-                <div class="quadrant-name italic">Sourcing</div>
-                <div class="quadrant-blurb">${dimensions[0].blurb}</div>
-              </div>
-              <div>
-                <div class="quadrant-score">
-                  <div class="score-number">${scores.sourcing.toFixed(1)}</div>
-                  <div class="score-band">${band(scores.sourcing).toLowerCase()}</div>
-                </div>
-                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.sourcing/5)*100}"></div></div>
-              </div>
-            </div>
-            <div class="quadrant">
-              <div>
-                <div class="quadrant-name italic">Revealing</div>
-                <div class="quadrant-blurb">${dimensions[3].blurb}</div>
-              </div>
-              <div>
-                <div class="quadrant-score">
-                  <div class="score-number">${scores.revealing.toFixed(1)}</div>
-                  <div class="score-band">${band(scores.revealing).toLowerCase()}</div>
-                </div>
-                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.revealing/5)*100}"></div></div>
-              </div>
-            </div>
-
             <div class="axis-side">Pecuniary</div>
             <div class="quadrant">
               <div>
@@ -1506,6 +1478,34 @@
                   <div class="score-band">${band(scores.selling).toLowerCase()}</div>
                 </div>
                 <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.selling/5)*100}"></div></div>
+              </div>
+            </div>
+
+            <div class="axis-side">Non-pecuniary</div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Sourcing</div>
+                <div class="quadrant-blurb">${dimensions[0].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.sourcing.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.sourcing).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.sourcing/5)*100}"></div></div>
+              </div>
+            </div>
+            <div class="quadrant">
+              <div>
+                <div class="quadrant-name italic">Revealing</div>
+                <div class="quadrant-blurb">${dimensions[3].blurb}</div>
+              </div>
+              <div>
+                <div class="quadrant-score">
+                  <div class="score-number">${scores.revealing.toFixed(1)}</div>
+                  <div class="score-band">${band(scores.revealing).toLowerCase()}</div>
+                </div>
+                <div class="score-bar"><div class="score-bar-fill" data-w="${(scores.revealing/5)*100}"></div></div>
               </div>
             </div>
           </div>
